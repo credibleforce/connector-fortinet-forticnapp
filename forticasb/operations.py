@@ -375,6 +375,33 @@ def get_file_summary(config=None, params=None):
     return result
 
 
+def get_policies(config=None, params=None):
+    fc = FortiCASB(config)
+    params = build_params(params)
+
+    if not config.get('resourceMap'):
+        get_resource_url_map(config, params)
+
+    endpoint = "datapattern/list"
+    resource_map = config.get('resourceMap')
+
+    user_id = resource_map[0]['roleId']
+    business_units = [bu for bu in resource_map[0]['buMapSet']]
+    all_data = []
+    for bu in business_units:
+        additional_headers = {
+            "companyId": str(bu['companyId']),
+            "roleId": str(user_id),
+            "buId": str(bu['buId']),
+            "timezone": params.get('timezone', "-0800")
+        }
+        result = fc.make_api_call(
+            config=config, endpoint=endpoint, method='GET', data=None, additional_headers=additional_headers)
+        all_data.extend(result)
+
+    return {"policies": all_data}
+
+
 def get_resource_url_map(config=None, params=None):
     fc = FortiCASB(config)
     params = build_params(params)
@@ -437,5 +464,6 @@ operations = {
     'get_resource_url_map': get_resource_url_map,
     'search_alerts': search_alerts,
     'get_file_summary': get_file_summary,
-    'search_activity': search_activity
+    'search_activity': search_activity,
+    'get_policies': get_policies
 }

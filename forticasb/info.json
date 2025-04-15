@@ -465,6 +465,20 @@
       }
     },
     {
+      "operation": "get_policies",
+      "title": "Get Policies",
+      "annotation": "get_policies",
+      "description": "Retrieve a list of all configured policies.",
+      "category": "investigation",
+      "is_config_required": true,
+      "visible": true,
+      "enabled": true,
+      "parameters": [],
+      "output_schema": {
+        
+      }
+    },
+    {
       "operation": "search_activity",
       "title": "Search Activity",
       "annotation": "search_activity",
