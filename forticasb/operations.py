@@ -137,7 +137,7 @@ def build_params(params):
 
 def str_to_list(param):
     if ',' in param:
-        return [item.strip() for item in param.split(',')]
+        return [item.strip() for item in str(param).split(',')]
     return [param.strip()]
 
 
@@ -174,25 +174,26 @@ def search_alerts(config, params):
     if not params.get('user'):
         payload["user"] = []
     else:
-        payload["user"] = [s.strip() for s in params.get('user').split(",")]
+        payload["user"] = [s.strip()
+                           for s in str(params.get('user')).split(",")]
 
     if not params.get('policy'):
         payload["policy"] = []
     else:
         payload["policy"] = [s.strip()
-                             for s in params.get('policy').split(",")]
+                             for s in str(params.get('policy')).split(",")]
 
     if not params.get('activity'):
         payload["activity"] = []
     else:
         payload["activity"] = [s.strip()
-                               for s in params.get('activity').split(",")]
+                               for s in str(params.get('activity')).split(",")]
 
     if not params.get('objectIdList'):
         payload["objectIdList"] = []
     else:
         payload["objectIdList"] = [s.strip()
-                                   for s in params.get('objectIdList').split(",")]
+                                   for s in str(params.get('objectIdList')).split(",")]
 
     if not params.get('objectName'):
         payload["objectName"] = ""
@@ -203,31 +204,31 @@ def search_alerts(config, params):
         payload["severity"] = []
     else:
         payload["severity"] = [s.strip()
-                               for s in params.get('severity').split(",")]
+                               for s in str(params.get('severity')).split(",")]
 
     if not params.get('status'):
         payload["status"] = []
     else:
         payload["status"] = [s.strip()
-                             for s in params.get('status').split(",")]
+                             for s in str(params.get('status')).split(",")]
 
     if not params.get('idList'):
         payload["idList"] = []
     else:
         payload["idList"] = [s.strip()
-                             for s in params.get('idList').split(",")]
+                             for s in str(params.get('idList')).split(",")]
 
     if not params.get('alertType'):
         payload["alertType"] = []
     else:
         payload["alertType"] = [s.strip()
-                                for s in params.get('alertType').split(",")]
+                                for s in str(params.get('alertType')).split(",")]
 
     if not params.get('countryList'):
         payload["countryList"] = []
     else:
         payload["countryList"] = [s.strip()
-                                  for s in params.get('countryList').split(",")]
+                                  for s in str(params.get('countryList')).split(",")]
 
     if not params.get('asc'):
         payload["asc"] = ""
@@ -313,22 +314,22 @@ def search_activity(config, params):
 
     if params.get('cityList'):
         payload["cityList"] = [s.strip()
-                               for s in params.get('cityList').split(",")]
+                               for s in str(params.get('cityList')).split(",")]
 
     if params.get('idList'):
         payload["idList"] = [s.strip()
-                             for s in params.get('idList').split(",")]
+                             for s in str(params.get('idList')).split(",")]
 
     if params.get('activity'):
         # translate activity names to ids
-        for name in [s.strip() for s in params.get('activity').split(",")]:
+        for name in [s.strip() for s in str(params.get('activity')).split(",")]:
             for activity in ACTIVITY_TYPES:
                 if name in activity.values():
                     payload["activity"].append(activity["id"])
 
     if params.get('ipList'):
         payload["ipList"] = [s.strip()
-                             for s in params.get('ipList').split(",")]
+                             for s in str(params.get('ipList')).split(",")]
 
     if params.get('objectName'):
         payload["objectName"] = params.get('objectName')
